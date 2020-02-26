@@ -12,7 +12,7 @@ export default class  Main extends Component {
     page: 1
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadProducts(); 
   }
 
