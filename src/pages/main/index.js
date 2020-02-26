@@ -20,11 +20,17 @@ export default class  Main extends Component {
 
     const { docs, ...productInfo } = response.data;
 
-    this.setState({ products: docs, productInfo });
+    this.setState({ products: docs, productInfo, page });
   };
 
   prevPage = () => {
+    const { page, productInfo } = this.state;
     
+    if (page === 1) return;
+
+    const pageNumber = page - 1;
+
+    this.loadProducts(pageNumber);
   }
 
   nextPage = () => {
@@ -39,7 +45,7 @@ export default class  Main extends Component {
 
   render(){
 
-    const { products } = this.state; //desestruturação
+    const { products, page, productInfo } = this.state; //desestruturação
 
     return (
       <div className="product-list">
@@ -53,8 +59,8 @@ export default class  Main extends Component {
           </article>
         ))}
         <div className="actions">
-          <button onClick= {this.prevPage} >Anterior</button>
-          <button onClick= {this.nextPage} >Próximo</button>
+          <button disabled={page === 1} onClick= {this.prevPage} >Anterior</button>
+          <button disabled={page === productInfo.pages} onClick= {this.nextPage} >Próximo</button>
         </div>
       </div>
     )
